@@ -134,6 +134,7 @@ public class GameManager : MonoBehaviour
         startScreen.SetActive(false);
         gamingScreen.SetActive(true);
         gameOver.SetActive(false);
+        Time.timeScale = 1f;
         pointController.ResetPoints();
         currentAirShip = ((GameObject)Instantiate(airshipPrefab, new Vector2(0,0), Quaternion.identity)).GetComponent<Airship>();
         currentPlayer = ((GameObject)Instantiate(playerPrefab, currentAirShip.GetPlayerStartLocation(),Quaternion.identity)).GetComponent<Player>();
