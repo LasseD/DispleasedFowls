@@ -46,6 +46,11 @@ public class Airship : MonoBehaviour {
         return inSideTheShip.OverlapPoint(point);
     }
 
+    public void ReduceAltitude(float altitude)
+    {
+        // TODO!
+    }
+
     public void ApplyPatch(Vector2 location)
     {
         print("Applying patch at " + location);
