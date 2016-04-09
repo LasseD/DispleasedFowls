@@ -3,18 +3,18 @@ using System.Collections;
 
 public class Airship : MonoBehaviour {
 
-    private PolygonCollider2D outsideOfTheShip;
-    private PolygonCollider2D theCabin;
-    
+    private PolygonCollider2D inSideTheShip;
+    private BoxCollider2D boxCollider;
+
     public void Start()
     {
-        outsideOfTheShip = transform.FindChild("OutsideOfShip").GetComponent<PolygonCollider2D>();
-        theCabin = transform.FindChild("Cabin").GetComponent<PolygonCollider2D>();
+        inSideTheShip = transform.FindChild("Graphics").GetComponent<PolygonCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     public void Update()
     {
-        //Debug.DrawLine(new Vector2(0, 0), GetRandomPointOnAirship(), Color.red, 0.2f);
+        Debug.DrawLine(new Vector2(0, 0), GetRandomPointOnAirship(), Color.green, 0.2f); //Debugging for where the generated point is located. 
     }
 
     public Vector2 GetRandomPointOnAirship()
@@ -23,32 +23,27 @@ public class Airship : MonoBehaviour {
         Vector2 point;
         do
         {
-            point = GetRandomPointOnTheScreenInWorldSpace();
+            point = GetRandomPointInBoxCollider();
             isInside = IsPointOnAirship(point);
         }
         while (!isInside);
-
+        Debug.Log(isInside);
         return point;
     }
 
-    private Vector2 GetRandomPointOnTheScreenInWorldSpace()
+    private Vector2 GetRandomPointInBoxCollider()
     {
-        int x = Random.Range(0, Screen.width);
-        int y = Random.Range(0, Screen.height);
-        return Camera.main.ScreenToWorldPoint(new Vector2(x,y));
-    }
+        Bounds bounds = boxCollider.bounds;
+        Vector3 center = bounds.center;
 
+        var x = Random.Range(center.x - bounds.extents.x, center.x + bounds.extents.x);
+        var y = Random.Range(center.y - bounds.extents.y, center.y + bounds.extents.y);
+
+        return new Vector2(x,y);
+    }
     public bool IsPointOnAirship(Vector2 point)
     {
-        if (outsideOfTheShip.bounds.Contains(point))
-        {
-            return false;
-        }
-        if (theCabin.bounds.Contains(point))
-        {
-            return false;
-        }
-        return true;
+        return inSideTheShip.OverlapPoint(point);
     }
 
     public void ApplyPatch(Vector2 location)
