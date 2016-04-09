@@ -1,15 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+[RequireComponent(typeof(Rigidbody))]
+public class PlayerController : MonoBehaviour
+{
+    Vector3 velocity;
+    Rigidbody myRigidBody;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+        myRigidBody = GetComponent<Rigidbody>();
+    }
+
+    public void Move(Vector3 _velocity)
+    {
+        velocity = _velocity;
+    }
+
+    public Vector2 GetLocation()
+    {
+        return new Vector2(myRigidBody.position.x, myRigidBody.position.y);
+    }
+
+    // Slow frame rate update.
+    private void FixedUpdate()
+    {
+        myRigidBody.MovePosition(myRigidBody.position + velocity * Time.fixedDeltaTime);
+    }
 }
