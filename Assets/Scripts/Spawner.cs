@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
             --enemiesRemainingToSpawn;
             nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
             Bird spawnedBird = Instantiate(bird, Vector3.zero, Quaternion.identity) as Bird;
-            spawnedBird.OnDeath += OnBirdDeath;
+            //spawnedBird.OnDeath += OnBirdDeath;
         }
     }
 
