@@ -70,8 +70,8 @@ public class Spawner : MonoBehaviour
         // Should we be using Unity.Random?
         return RandomFloat(new System.Random(), a, b);
     }
-    private const float SpawnPointMinDistance = 2f;
-    private const float SpawnPointMaxDistance = 3f;
+    public float SpawnPointMinDistance = 12f;
+    public float SpawnPointMaxDistance = 13f;
     private static Vector2 VectorRadian(double sigma, double r) {
         var x = System.Math.Sin(sigma) * r;
         var y = System.Math.Cos(sigma) * r;
