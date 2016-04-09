@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(PlayerController))]
 public class Player : MonoBehaviour
 {
     public float moveSpeed = 5;
-
+    public float DPS = 100;
     private PlayerController playerController;
     private Airship airship;
     private Animator anim;
 
+    public List<Hole> currentlyReachableHoles = new List<Hole>();
 
     public void Start()
     {
@@ -38,7 +40,32 @@ public class Player : MonoBehaviour
         // Shoot input:
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            airship.ApplyPatch(playerController.GetLocation());
+            Debug.Log("test");
+            if(currentlyReachableHoles.Count>=1){
+                currentlyReachableHoles[0].ApplyingDamge(DPS * Time.deltaTime);
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<Hole>() != null)
+        {
+            if (!currentlyReachableHoles.Contains(other.GetComponent<Hole>()))
+            {
+                currentlyReachableHoles.Add(other.GetComponent<Hole>());
+            }
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.GetComponent<Hole>() != null)
+        {
+            if (currentlyReachableHoles.Contains(other.GetComponent<Hole>()))
+            {
+                currentlyReachableHoles.Remove(other.GetComponent<Hole>());
+            }
         }
     }
 }

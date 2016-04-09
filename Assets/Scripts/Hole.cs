@@ -7,9 +7,15 @@ public class Hole : MonoBehaviour {
     public float initialHealth = 100f;
     public float altitudeLossPerSecond = 1.5f;
 
-    private float health;
+    private float health = 100f;
+
+    public Sprite[] sizes;
+    public float[] colliderRadius;
+    public int size;
 
 	void Start () {
+        GetComponent<SpriteRenderer>().sprite = sizes[size];
+        GetComponent<CircleCollider2D>().radius = colliderRadius[size];
         health = initialHealth;
     }
 
@@ -23,6 +29,12 @@ public class Hole : MonoBehaviour {
         if (health <= 0)
             return;
         GameManager.instance.getAirship().ReduceAltitude(altitudeLossPerSecond * Time.deltaTime);
+    }
+
+    public void ApplyingDamge(float dmg)
+    {
+        health -= dmg;
+        CheckHealth();
     }
 
     void CheckHealth()

@@ -56,11 +56,6 @@ public class Airship : MonoBehaviour {
         altitudeInMeters -= altitudeLossInMeters;
     }
 
-    public void ApplyPatch(Vector2 location)
-    {
-        print("Applying patch at " + location);
-        // TODO!
-    }
 
     public Vector2 GetPlayerStartLocation()
     {
