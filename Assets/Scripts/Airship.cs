@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Airship : MonoBehaviour {
+
     public float altitudeInMeters = 3000;
 
     private PolygonCollider2D inSideTheShip;
@@ -15,7 +16,7 @@ public class Airship : MonoBehaviour {
 
     public void Update()
     {
-        Debug.DrawLine(new Vector2(0, 0), GetRandomPointOnAirship(), Color.green, 0.2f); //Debugging for where the generated point is located. 
+        //Debug.DrawLine(new Vector2(0, 0), GetRandomPointOnAirship(), Color.green, 0.2f); //Debugging for where the generated point is located. 
     }
 
     public Vector2 GetRandomPointOnAirship()
@@ -65,5 +66,10 @@ public class Airship : MonoBehaviour {
     {
         print("Applying patch at " + location);
         // TODO!
+    }
+
+    public Vector2 GetPlayerStartLocation()
+    {
+        return transform.FindChild("PlayerSpawnLocation").transform.position;
     }
 }
