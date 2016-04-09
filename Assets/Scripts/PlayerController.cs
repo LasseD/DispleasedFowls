@@ -4,12 +4,12 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    Vector3 velocity;
-    Rigidbody myRigidBody;
+    Vector2 velocity;
+    Rigidbody2D myRigidBody;
 
     void Start()
     {
-        myRigidBody = GetComponent<Rigidbody>();
+        myRigidBody = GetComponent<Rigidbody2D>();
     }
 
     public void Move(Vector3 _velocity)
