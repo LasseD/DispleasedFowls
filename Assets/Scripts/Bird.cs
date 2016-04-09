@@ -13,6 +13,7 @@ public class Bird : MonoBehaviour
     public float scareDistance = 1.5f; // Player within this distance => scare away.
     public float flightSpeed = 30f;
     public float peckingTimeSeconds = 4f;
+    public int pointsForScare = 100;
 
     private Vector2 spawnLocation, target;
     private State currentState;
@@ -73,6 +74,7 @@ public class Bird : MonoBehaviour
                 OnBirdScared();
             anim.SetBool("BirdPecking", false);
             currentState = State.Leaving;
+            GameManager.instance.GetPointController().GivePoints(pointsForScare);
         }
     }
     private void MoveTowardTarget()

@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class Hole : MonoBehaviour {
-    public event System.Action OnFixed;
-
     public float initialHealth = 100f;
     private float altitudeLossPerSecond = 1.5f;
 
@@ -12,6 +10,7 @@ public class Hole : MonoBehaviour {
     public Sprite[] sizes;
     public float[] colliderRadius;
     public float[] altitudeLossPerSeconds;
+    public int pointsForPatch = 80;
 
     private int size;
 
@@ -47,6 +46,8 @@ public class Hole : MonoBehaviour {
         if (health >= 0)
             return;
         Patch p = ((GameObject)Instantiate(GameManager.instance.GetPatchToClone(), gameObject.transform.position, Quaternion.identity)).GetComponent<Patch>();
+        GameManager.instance.GetPointController().GivePoints(pointsForPatch);
+
         p.size = size;
         p.transform.rotation = transform.rotation;
         GameObject.Destroy(gameObject);
