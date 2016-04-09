@@ -2,7 +2,6 @@
 using System.Collections;
 
 [RequireComponent(typeof(PlayerController))]
-[RequireComponent(typeof(AirshipController))]
 public class Player : MonoBehaviour
 {
     public float moveSpeed = 5;
@@ -10,11 +9,13 @@ public class Player : MonoBehaviour
     private PlayerController playerController;
     private AirshipController airshipController;
 
+    public string sortingLayer = "Front";
+
     public void Start()
     {
         Debug.Log("Started player");
         playerController = GetComponent<PlayerController>();
-        airshipController = GetComponent<AirshipController>();
+        airshipController = GameObject.FindGameObjectWithTag("Airship").GetComponent<AirshipController>();
     }
 
     void Update()
