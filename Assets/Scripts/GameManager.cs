@@ -3,7 +3,7 @@ using UnityEngine.UI; // Access text elements
 using UnityEngine.SceneManagement;
 
 
-[RequireComponent(typeof(PointController))]
+[RequireComponent(typeof(PointController), typeof(Spawner))]
 public class GameManager : MonoBehaviour
 {
     public float resetDelay = 3; // Time in secs after game ended.
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public int highScore = 1000;
     private PointController pointController;
 
-    public Spawner spawner;
+    private Spawner spawner;
 
 
 
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         startScreen.SetActive(true);
         gameOver.SetActive(false);
         gamingScreen.SetActive(false);
+        spawner = GetComponent<Spawner>();
     }
 
     public Airship getAirship()
