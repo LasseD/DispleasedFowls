@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
             Destroy(instance); // Prevent multiple GMs when additional scenes are added.
     }
 
+    public Airship getAirship()
+    {
+        return cloneAirship;
+    }
+
     public void Update()
     {
         if (gameState == GameState.Gaming)

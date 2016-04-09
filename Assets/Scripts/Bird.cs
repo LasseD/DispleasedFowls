@@ -3,15 +3,17 @@ using System.Collections;
 
 public class Bird : MonoBehaviour
 {
-    public enum State
+    public event System.Action OnDone;
+
+    private enum State
     {
         Incoming, Pecking, Leaving
     }
 
     public float scareDistance = 1.5f; // Player within this distance => scare away.
-    public Transform spawnLocation;
+    public float flightSpeed = 30f;
 
-    private Transform target;
+    private Vector2 spawnLocation, target;
     private State currentState;
     private GameObject player;
 
@@ -19,9 +21,30 @@ public class Bird : MonoBehaviour
     {
         currentState = State.Incoming;
         player = GameObject.FindGameObjectWithTag("Player");
+        target = GameManager.instance.getAirship().GetRandomPointOnAirship();
+        spawnLocation = transform.position;
     }
 
     void Update()
+    {
+        switch(currentState)
+        {
+            case State.Incoming:
+                MoveTowardTarget();
+                break;
+
+        }
+    }
+
+    private void Flee()
+    {
+
+    }
+    private void MoveTowardTarget()
+    {
+
+    }
+    private void Peck()
     {
 
     }
