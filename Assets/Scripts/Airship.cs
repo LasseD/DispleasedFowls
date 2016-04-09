@@ -28,7 +28,6 @@ public class Airship : MonoBehaviour {
             isInside = IsPointOnAirship(point);
         }
         while (!isInside);
-        Debug.Log(isInside);
         return point;
     }
 
