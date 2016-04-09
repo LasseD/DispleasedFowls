@@ -22,6 +22,7 @@ public class Bird : MonoBehaviour
 
     public void Start()
     {
+        if (!GameManager.InGame()) return;
         currentState = State.Incoming;
         player = GameObject.FindGameObjectWithTag("Player");
         target = GameManager.instance.getAirship().GetRandomPointOnAirship();
@@ -32,7 +33,8 @@ public class Bird : MonoBehaviour
 
     void Update()
     {
-        switch(currentState)
+        if (!GameManager.InGame()) return;
+        switch (currentState)
         {
             case State.Incoming:
                 MoveTowardTarget();

@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState;
 
+    public static bool InGame() {
+        return GameManager.instance != null && GameManager.instance.gameState == GameManager.GameState.Gaming;
+    }
+
     public enum GameState{ FrontPage, Gaming, HighScoreScreen};
 
     public Airship currentAirShip;
