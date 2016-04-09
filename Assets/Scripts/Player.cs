@@ -7,13 +7,13 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5;
 
     private PlayerController playerController;
-    private AirshipController airshipController;
+    private Airship airship;
     
     public void Start()
     {
         Debug.Log("Started player");
         playerController = GetComponent<PlayerController>();
-        airshipController = GameObject.FindGameObjectWithTag("Airship").GetComponent<AirshipController>();
+        airship = GameObject.FindGameObjectWithTag("Airship").GetComponent<Airship>();
     }
 
     void Update()
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         // Shoot input:
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            airshipController.ApplyPatch(playerController.GetLocation());
+            airship.ApplyPatch(playerController.GetLocation());
         }
     }
 }
