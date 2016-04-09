@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+<<<<<<< HEAD
 public class Enemy : MonoBehaviour
 {
     public enum State
@@ -25,4 +26,19 @@ public class Enemy : MonoBehaviour
     {
 
     }
+=======
+public class Bird : MonoBehaviour {
+
+    public Vector2 location;
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+>>>>>>> f492cbe46b83ec391abfd3b3e1d0fbadd194622e
 }
