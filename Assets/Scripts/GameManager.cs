@@ -14,11 +14,9 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject patchToClone, holeToClone;
     public static GameManager instance = null; // Use instance of this class.
-    public GameState gameState;
-
-    public enum GameState{ FrontPage, Gaming, HighScoreScreen};
-
+    public Spawner spawner;
     private Airship currentAirShip;
+    public GameState gameState;
 
     public GameObject GetHoleToClone()
     {
@@ -33,6 +31,7 @@ public class GameManager : MonoBehaviour
             throw new MissingComponentException("Please add a patch to the game manager. Hole location should be 0,0.");
         return patchToClone;
     }
+    public enum GameState { FrontPage, Gaming, HighScoreScreen };
 
     // Use this for initialization
     void Start()

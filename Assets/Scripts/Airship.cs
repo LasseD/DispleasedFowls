@@ -6,7 +6,7 @@ public class Airship : MonoBehaviour {
     public float altitudeInMeters = 3000;
 
     private PolygonCollider2D inSideTheShip;
-    private BoxCollider2D boxCollider;
+    internal BoxCollider2D boxCollider;
 
     public void Start()
     {
