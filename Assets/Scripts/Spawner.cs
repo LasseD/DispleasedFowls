@@ -13,19 +13,21 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        currentWaveNumber = -1;
+        currentWaveNumber = 0;
+        enemiesRemainingToSpawn = 0;
+        nextSpawnTime = 0;
     }
 
     void Update()
     {
+        print(string.Format("enemiesRemainingToSpawn: {0}", enemiesRemainingToSpawn));
+        print(string.Format("nextSpawnTime: {0}", nextSpawnTime));
         if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
         {
             --enemiesRemainingToSpawn;
             nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
 
-            Bird spawnedBird = Instantiate(birdToClone, Vector3.zero, Quaternion.identity) as Bird;
-
-            //spawnedBird.OnDeath += OnBirdDeath;
+            SpawnBird();
         }
     }
 
@@ -40,23 +42,27 @@ public class Spawner : MonoBehaviour
 
     internal void NextWave()
     {
-        ++currentWaveNumber;
-        print("Wave " + currentWaveNumber + "starting!");
+        print("Wave " + currentWaveNumber + " starting!");
         if (currentWaveNumber >= waves.Length)
             currentWaveNumber = 0;
         currentWave = waves[currentWaveNumber];
         enemiesRemainingToSpawn = currentWave.BirdCount;
         enemiesRemainingAlive = currentWave.BirdCount;
-        var airship = GameManager.instance.getAirship();
-        SpawnEnemies(airship.BoxCollider.offset);
+        ++currentWaveNumber;
     }
 
-    private void SpawnEnemies(Vector2 ctr)
+    private void SpawnBird() {
+        var airship = GameManager.instance.getAirship();
+        SpawnBirdAt(airship.BoxCollider.offset);
+    }
+
+    private void SpawnBirdAt(Vector2 ctr)
     {
         var sigma = MakeRandomFloat(0, TAU);
         var r = MakeRandomFloat(SpawnPointMinDistance, SpawnPointMaxDistance);
         var delta = VectorRadian(sigma, r);
-        Instantiate(birdToClone, ctr + delta, Quaternion.identity);
+        var bird = Instantiate(birdToClone, ctr + delta, Quaternion.identity) as Bird;
+        bird.OnDone += OnBirdDeath;
     }
 
     private const double TAU = System.Math.PI * 2;
@@ -70,8 +76,8 @@ public class Spawner : MonoBehaviour
         // Should we be using Unity.Random?
         return RandomFloat(new System.Random(), a, b);
     }
-    private const float SpawnPointMinDistance = 2f;
-    private const float SpawnPointMaxDistance = 3f;
+    public float SpawnPointMinDistance = 12f;
+    public float SpawnPointMaxDistance = 13f;
     private static Vector2 VectorRadian(double sigma, double r) {
         var x = System.Math.Sin(sigma) * r;
         var y = System.Math.Cos(sigma) * r;
