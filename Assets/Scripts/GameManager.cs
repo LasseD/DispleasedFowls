@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
         Setup();
     }
 
+    public Airship getAirship()
+    {
+        return cloneAirship;
+    }
+
     public void Setup()
     {
         cloneAirship = (Airship)Instantiate(airshipPrefab, transform.position, Quaternion.identity); // position => identity position at start. identity => no rotation.
