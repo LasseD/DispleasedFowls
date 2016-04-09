@@ -38,7 +38,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void NextWave()
+    internal void NextWave()
     {
         ++currentWaveNumber;
         print("Wave " + currentWaveNumber + "starting!");

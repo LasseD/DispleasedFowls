@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
         currentAirShip = ((GameObject)Instantiate(airshipPrefab, new Vector2(0,0), Quaternion.identity)).GetComponent<Airship>();
         currentPlayer = ((GameObject)Instantiate(playerPrefab, currentAirShip.GetPlayerStartLocation(),Quaternion.identity)).GetComponent<Player>();
         gameState = GameState.Gaming;
+        spawner.NextWave();
     }
 
     public void ShowFrontPage()
