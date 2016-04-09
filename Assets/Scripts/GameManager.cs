@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject highscoreScreen;
     public GameObject gamingScreen;
     public GameObject airshipPrefab;
-    public GameObject playerPrefab; 
+    public GameObject playerPrefab;
+    public GameObject patchToClone, holeToClone;
     public static GameManager instance = null; // Use instance of this class.
     public GameState gameState;
 
@@ -19,7 +20,19 @@ public class GameManager : MonoBehaviour
 
     private Airship currentAirShip;
 
+    public GameObject GetHoleToClone()
+    {
+        if (holeToClone == null)
+            throw new MissingComponentException("Please add a hole to the game manager. Hole location should be 0,0.");
+        return holeToClone;
+    }
 
+    public GameObject GetPatchToClone()
+    {
+        if (patchToClone == null)
+            throw new MissingComponentException("Please add a patch to the game manager. Hole location should be 0,0.");
+        return patchToClone;
+    }
 
     // Use this for initialization
     void Start()

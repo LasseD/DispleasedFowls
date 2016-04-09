@@ -96,7 +96,7 @@ public class Bird : MonoBehaviour
         peckingTimeRemaining -= Time.deltaTime;
         if(peckingTimeRemaining <= 0)
         {
-            Instantiate(gameObject.GetComponent<Patch>(), transform.position, Quaternion.identity);
+            Instantiate(GameManager.instance.GetHoleToClone(), transform.position, Quaternion.identity);
             currentState = State.Leaving;
             if(OnHoleCreated != null)
                 OnHoleCreated();
