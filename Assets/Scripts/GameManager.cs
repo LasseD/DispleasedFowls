@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject highscoreScreen;
     public Airship airshipPrefab;
     public static GameManager instance = null; // Use instance of this class.
+    public Spawner spawner;
     private Airship cloneAirship;
 
     // Use this for initialization
