@@ -9,9 +9,17 @@ public class GameManager : MonoBehaviour
     public GameObject gameOver;
     public GameObject startScreen;
     public GameObject highscoreScreen;
-    public Airship airshipPrefab;
+    public GameObject gamingScreen;
+    public GameObject airshipPrefab;
+    public GameObject playerPrefab; 
     public static GameManager instance = null; // Use instance of this class.
-    private Airship cloneAirship;
+    public GameState gameState;
+
+    public enum GameState{ FrontPage, Gaming, HighScoreScreen};
+
+    private Airship currentAirShip;
+
+
 
     // Use this for initialization
     void Start()
@@ -20,18 +28,19 @@ public class GameManager : MonoBehaviour
             instance = this; // Only one GM.
         else if (instance != this)
             Destroy(instance); // Prevent multiple GMs when additional scenes are added.
-        Setup();
     }
 
-    public void Setup()
+    public void Update()
     {
-        cloneAirship = (Airship)Instantiate(airshipPrefab, transform.position, Quaternion.identity); // position => identity position at start. identity => no rotation.
-        Instantiate(airshipPrefab, transform.position, Quaternion.identity); // Not accessing them.
+        if (gameState == GameState.Gaming)
+        {
+            altitudeText.text = "Altitude: " + "dummy" + " ft";
+        }
     }
 
     public void CheckGameOver()
     {
-        if (cloneAirship.altitudeInMeters <= 0)
+        if (currentAirShip.altitudeInMeters <= 0)
         {
             gameOver.SetActive(true);
             Time.timeScale = 0.25f; // slowmo.
@@ -44,5 +53,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         //Application.LoadLevel(Application.loadedLevel); // Load scene. Reload last loaded scene.
         SceneManager.LoadScene(0); // Load scene. Reload last loaded scene.
+    }
+
+    public void StartGame()
+    {
+        startScreen.SetActive(false);
+        currentAirShip = ((GameObject)Instantiate(airshipPrefab, new Vector2(0,0), Quaternion.identity)).GetComponent<Airship>();
+        Instantiate(playerPrefab, currentAirShip.GetPlayerStartLocation(),Quaternion.identity);
+    }
+
+    public void ShowFrontPage()
+    {
+
     }
 }
