@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Airship : MonoBehaviour {
+    public float altitudeInMeters = 3000;
 
     private PolygonCollider2D inSideTheShip;
     private BoxCollider2D boxCollider;
@@ -46,9 +47,19 @@ public class Airship : MonoBehaviour {
         return inSideTheShip.OverlapPoint(point);
     }
 
-    public void ReduceAltitude(float altitude)
+    public void ReduceAltitude(float altitudeLossInMeters)
     {
+        altitudeInMeters -= altitudeLossInMeters;
+        CheckGameOver();
+    }
+
+    private void CheckGameOver()
+    {
+        if (altitudeInMeters > 0)
+            return;
+        print("Game over!");
         // TODO!
+
     }
 
     public void ApplyPatch(Vector2 location)
