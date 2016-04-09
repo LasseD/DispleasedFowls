@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hole : MonoBehaviour {
+public class Hole : MonoBehaviour
+{
     public float initialHealth = 100f;
     private float altitudeLossPerSecond = 1.5f;
 
@@ -14,16 +15,18 @@ public class Hole : MonoBehaviour {
 
     private int size;
 
-	void Start () {
-        transform.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0,360));
-        size = Random.Range(0,3);
+    void Start()
+    {
+        transform.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+        size = Random.Range(0, 3);
         GetComponent<SpriteRenderer>().sprite = sizes[size];
         GetComponent<CircleCollider2D>().radius = colliderRadius[size];
         altitudeLossPerSecond = altitudeLossPerSeconds[size];
         health = initialHealth;
     }
 
-    void Update () {
+    void Update()
+    {
         ApplyDamage();
         CheckHealth();
     }

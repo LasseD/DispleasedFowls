@@ -31,9 +31,7 @@ public class GameManager : MonoBehaviour
     private PointController pointController;
 
     private Spawner spawner;
-
-
-
+    
     public GameObject GetHoleToClone()
     {
         if (holeToClone == null)
@@ -75,7 +73,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Gaming)
         {
             if (altitudeText != null) {
-                altitudeText.text = "Altitude: " + currentAirShip.altitudeInMeters + " ft";
+                altitudeText.text = "Altitude: " + Mathf.FloorToInt(currentAirShip.altitudeInMeters) + " ft";
             }
             if (scoreText != null) {
                 scoreText.text = "Points: " + pointController.GetPoints();
@@ -124,6 +122,14 @@ public class GameManager : MonoBehaviour
         if (currentPlayer != null)
         {
             Destroy(currentPlayer.gameObject);
+        }
+
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Destroy");
+
+
+        for (int i = 0; i < allObjects.Length; i ++)
+        {
+            Destroy(allObjects[i]);
         }
 
         ShowFrontPage();

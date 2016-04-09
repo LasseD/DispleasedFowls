@@ -53,7 +53,7 @@ public class Bird : MonoBehaviour
     {
         float movedDistance = flightSpeed * Time.deltaTime;
         Vector2 location = transform.position;
-        if((spawnLocation - location).sqrMagnitude <= movedDistance * movedDistance)
+        if ((spawnLocation - location).sqrMagnitude <= movedDistance * movedDistance)
         {
             // Done!
             if (OnDone != null)
@@ -68,7 +68,7 @@ public class Bird : MonoBehaviour
     {
         Vector2 playerLocation = player.transform.position;
         Vector2 playerToBird = playerLocation - ((Vector2)transform.position);
-        if (playerToBird.SqrMagnitude() <= scareDistance*scareDistance)
+        if (playerToBird.SqrMagnitude() <= scareDistance * scareDistance)
         {
             if (OnBirdScared != null)
                 OnBirdScared();
@@ -98,11 +98,11 @@ public class Bird : MonoBehaviour
     private void Peck()
     {
         peckingTimeRemaining -= Time.deltaTime;
-        if(peckingTimeRemaining <= 0)
+        if (peckingTimeRemaining <= 0)
         {
             Instantiate(GameManager.instance.GetHoleToClone(), transform.position, Quaternion.identity);
             currentState = State.Leaving;
-            if(OnHoleCreated != null)
+            if (OnHoleCreated != null)
                 OnHoleCreated();
             anim.SetBool("BirdPecking", false);
             return;
