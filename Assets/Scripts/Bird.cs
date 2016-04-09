@@ -20,6 +20,7 @@ public class Bird : MonoBehaviour
     private GameObject player;
     private float peckingTimeRemaining;
     private Animator anim;
+    private SpriteRenderer renderer;
 
     public void Start()
     {
@@ -30,6 +31,7 @@ public class Bird : MonoBehaviour
         spawnLocation = transform.position;
         anim = GetComponent<Animator>();
         anim.SetBool("BirdPecking", false);
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -62,6 +64,14 @@ public class Bird : MonoBehaviour
             return;
         }
         Vector2 direction = (spawnLocation - location).normalized;
+        if (direction.x < 0)
+        {
+            renderer.flipX = true;
+        }
+        else
+        {
+            renderer.flipX = false;
+        }
         transform.position = location + (direction * flightSpeed * Time.deltaTime);
     }
     private void CheckScared()
@@ -92,6 +102,15 @@ public class Bird : MonoBehaviour
             return;
         }
         Vector2 direction = (target - location).normalized;
+        if (direction.x<0)
+        {
+            renderer.flipX = true;
+        } else
+        {
+            renderer.flipX = false;
+        }
+
+
         transform.position = location + (direction * flightSpeed * Time.deltaTime);
         CheckScared();
     }

@@ -6,18 +6,18 @@ public class UpAndDown : MonoBehaviour
 
     public float amplityde;
     public float speed;
-    private float startY;
+    private Vector3 startPos;
     private float timer = 0;
 
     void Start()
     {
-        startY = transform.position.y;
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        transform.position = new Vector2(transform.position.x, startY + amplityde * Mathf.Sin(speed * timer));
+        transform.position = new Vector3(startPos.x, startPos.y + amplityde * Mathf.Sin(speed * timer),startPos.z);
     }
 }
