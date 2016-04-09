@@ -11,4 +11,10 @@ public class Airship : MonoBehaviour {
     {
         return true; // TODO: Implement!
     }
+
+    public void ApplyPatch(Vector2 location)
+    {
+        print("Applying patch at " + location);
+        // TODO!
+    }
 }
