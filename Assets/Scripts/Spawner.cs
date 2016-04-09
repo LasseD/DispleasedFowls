@@ -22,8 +22,10 @@ public class Spawner : MonoBehaviour
         if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
         {
             --enemiesRemainingToSpawn;
-            nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
-            Bird spawnedBird = Instantiate(bird, Vector3.zero, Quaternion.identity) as Bird;
+            nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
+
+            Bird spawnedBird = Instantiate(bird, Vector3.zero, Quaternion.identity) as Bird;
+
             //spawnedBird.OnDeath += OnBirdDeath;
         }
     }
