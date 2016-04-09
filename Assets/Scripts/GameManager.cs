@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     public enum GameState{ FrontPage, Gaming, HighScoreScreen};
 
-    public Airship currentAirShip;
-    public Player currentPlayer;
+    private Airship currentAirShip;
+    private Player currentPlayer;
 
     public int highScore = 1000;
     private PointController pointController;

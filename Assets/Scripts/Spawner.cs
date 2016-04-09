@@ -47,13 +47,12 @@ public class Spawner : MonoBehaviour
         currentWave = waves[currentWaveNumber];
         enemiesRemainingToSpawn = currentWave.BirdCount;
         enemiesRemainingAlive = currentWave.BirdCount;
-        var airship = GameObject.FindGameObjectWithTag("Airship").GetComponent<Airship>();
-        SpawnEnemies(airship.boxCollider.offset);
+        var airship = GameManager.instance.getAirship();
+        SpawnEnemies(airship.BoxCollider.offset);
     }
 
     private void SpawnEnemies(Vector2 ctr)
     {
-        Instantiate(birdToClone, Vector3.zero, Quaternion.identity);
         var sigma = MakeRandomFloat(0, TAU);
         var r = MakeRandomFloat(SpawnPointMinDistance, SpawnPointMaxDistance);
         var delta = VectorRadian(sigma, r);
@@ -71,8 +70,8 @@ public class Spawner : MonoBehaviour
         // Should we be using Unity.Random?
         return RandomFloat(new System.Random(), a, b);
     }
-    private const float SpawnPointMinDistance = 42f;
-    private const float SpawnPointMaxDistance = 1337f;
+    private const float SpawnPointMinDistance = 2f;
+    private const float SpawnPointMaxDistance = 3f;
     private static Vector2 VectorRadian(double sigma, double r) {
         var x = System.Math.Sin(sigma) * r;
         var y = System.Math.Cos(sigma) * r;

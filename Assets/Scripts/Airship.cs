@@ -6,12 +6,16 @@ public class Airship : MonoBehaviour {
     public float altitudeInMeters = 3000;
 
     private PolygonCollider2D inSideTheShip;
-    internal BoxCollider2D boxCollider;
+    private BoxCollider2D boxCollider;
+    internal BoxCollider2D BoxCollider { get {
+            if(boxCollider == null) boxCollider = GetComponent<BoxCollider2D>();
+            return boxCollider;
+        }
+    }
 
     public void Start()
     {
         inSideTheShip = transform.FindChild("Graphics").GetComponent<PolygonCollider2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     public void Update()
