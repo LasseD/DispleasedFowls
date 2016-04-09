@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public Airship getAirship()
     {
-        return cloneAirship;
+        return currentAirShip;
     }
 
     public void Update()
