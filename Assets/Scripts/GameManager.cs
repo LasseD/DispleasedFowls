@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public float resetDelay = 3; // Time in secs after game ended.
     public Text scoreText, highScoreText, altitudeText;
     public GameObject gameOver;
+    public GameObject startScreen;
+    public GameObject highscoreScreen;
     public Airship airshipPrefab;
     public static GameManager instance = null; // Use instance of this class.
     private Airship cloneAirship;
