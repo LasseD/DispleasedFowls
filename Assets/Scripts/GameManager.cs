@@ -2,13 +2,14 @@
 using UnityEngine.UI; // Access text elements
 using UnityEngine.SceneManagement;
 
+
+[RequireComponent(typeof(PointController))]
 public class GameManager : MonoBehaviour
 {
     public float resetDelay = 3; // Time in secs after game ended.
     public Text scoreText, highScoreText, altitudeText;
     public GameObject gameOver;
     public GameObject startScreen;
-    public GameObject highscoreScreen;
     public GameObject gamingScreen;
     public GameObject airshipPrefab;
     public GameObject playerPrefab; 
@@ -17,9 +18,11 @@ public class GameManager : MonoBehaviour
 
     public enum GameState{ FrontPage, Gaming, HighScoreScreen};
 
-    private Airship currentAirShip;
+    public Airship currentAirShip;
+    public Player currentPlayer;
 
-
+    public int highScore = 1000;
+    private PointController pointController;
 
     // Use this for initialization
     void Start()
@@ -28,6 +31,11 @@ public class GameManager : MonoBehaviour
             instance = this; // Only one GM.
         else if (instance != this)
             Destroy(instance); // Prevent multiple GMs when additional scenes are added.
+
+        pointController = GetComponent<PointController>();
+        startScreen.SetActive(true);
+        gameOver.SetActive(false);
+        gamingScreen.SetActive(false);
     }
 
     public Airship getAirship()
@@ -39,7 +47,15 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameState.Gaming)
         {
-            altitudeText.text = "Altitude: " + "dummy" + " ft";
+            if (altitudeText != null) {
+                altitudeText.text = "Altitude: " + currentAirShip.altitudeInMeters + " ft";
+            }
+            if (scoreText != null) {
+                scoreText.text = "Points: " + pointController.GetPoints();
+            }
+
+
+            CheckGameOver();
         }
     }
 
@@ -47,28 +63,68 @@ public class GameManager : MonoBehaviour
     {
         if (currentAirShip.altitudeInMeters <= 0)
         {
-            gameOver.SetActive(true);
-            Time.timeScale = 0.25f; // slowmo.
-            Invoke("Reset", resetDelay); // Reset the game.
+            gameState = GameState.HighScoreScreen;
+            Death();
         }
     }
 
-    private void Reset()
+    public void Death()
     {
-        Time.timeScale = 1;
-        //Application.LoadLevel(Application.loadedLevel); // Load scene. Reload last loaded scene.
-        SceneManager.LoadScene(0); // Load scene. Reload last loaded scene.
+        Debug.Log("Death");
+        Time.timeScale = 0.25f; // slowmo.
+        Invoke("ShowHighScoreScreen", resetDelay * Time.timeScale); // Reset the game.
+    }
+
+    private void ShowHighScoreScreen()
+    {
+        if (pointController.GetPoints() > highScore)
+        {
+            highScoreText.text = "NEW HIGHSCORE!!!\n";
+            highScoreText.text += pointController.GetPoints().ToString();
+            highScore = pointController.GetPoints();
+        }
+        else
+        {
+            highScoreText.text = pointController.GetPoints().ToString();
+        }
+
+        gameOver.SetActive(true);
+        gamingScreen.SetActive(false);
+        if (currentAirShip != null)
+        {
+            Destroy(currentAirShip.gameObject);
+        }
+        if (currentPlayer != null)
+        {
+            Destroy(currentPlayer.gameObject);
+        }
+
+        ShowFrontPage();
     }
 
     public void StartGame()
     {
         startScreen.SetActive(false);
+        gamingScreen.SetActive(true);
+        gameOver.SetActive(false);
+        pointController.ResetPoints();
         currentAirShip = ((GameObject)Instantiate(airshipPrefab, new Vector2(0,0), Quaternion.identity)).GetComponent<Airship>();
-        Instantiate(playerPrefab, currentAirShip.GetPlayerStartLocation(),Quaternion.identity);
+        currentPlayer = ((GameObject)Instantiate(playerPrefab, currentAirShip.GetPlayerStartLocation(),Quaternion.identity)).GetComponent<Player>();
+        gameState = GameState.Gaming;
     }
 
     public void ShowFrontPage()
     {
+        startScreen.SetActive(true);
+    }
 
+    public PointController GetPointController()
+    {
+        return pointController;
+    }
+
+    public void LoseAltitude(int height)
+    {
+        currentAirShip.ReduceAltitude(height);
     }
 }

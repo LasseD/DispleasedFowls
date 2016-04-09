@@ -50,16 +50,6 @@ public class Airship : MonoBehaviour {
     public void ReduceAltitude(float altitudeLossInMeters)
     {
         altitudeInMeters -= altitudeLossInMeters;
-        CheckGameOver();
-    }
-
-    private void CheckGameOver()
-    {
-        if (altitudeInMeters > 0)
-            return;
-        print("Game over!");
-        // TODO!
-
     }
 
     public void ApplyPatch(Vector2 location)
