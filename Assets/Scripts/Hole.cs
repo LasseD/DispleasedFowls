@@ -5,17 +5,22 @@ public class Hole : MonoBehaviour {
     public event System.Action OnFixed;
 
     public float initialHealth = 100f;
-    public float altitudeLossPerSecond = 1.5f;
+    private float altitudeLossPerSecond = 1.5f;
 
     private float health = 100f;
 
     public Sprite[] sizes;
     public float[] colliderRadius;
-    public int size;
+    public float[] altitudeLossPerSeconds;
+
+    private int size;
 
 	void Start () {
+        transform.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0,360));
+        size = Random.Range(0,3);
         GetComponent<SpriteRenderer>().sprite = sizes[size];
         GetComponent<CircleCollider2D>().radius = colliderRadius[size];
+        altitudeLossPerSecond = altitudeLossPerSeconds[size];
         health = initialHealth;
     }
 
@@ -39,9 +44,16 @@ public class Hole : MonoBehaviour {
 
     void CheckHealth()
     {
-        if (health > 0)
+        if (health >= 0)
             return;
-        Instantiate(GameManager.instance.GetPatchToClone(), gameObject.transform.position, Quaternion.identity);
+        Patch p = ((GameObject)Instantiate(GameManager.instance.GetPatchToClone(), gameObject.transform.position, Quaternion.identity)).GetComponent<Patch>();
+        p.size = size;
+        p.transform.rotation = transform.rotation;
         GameObject.Destroy(gameObject);
+    }
+
+    public bool isDead()
+    {
+        return health < 0;
     }
 }

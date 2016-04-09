@@ -20,8 +20,8 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        print(string.Format("enemiesRemainingToSpawn: {0}", enemiesRemainingToSpawn));
-        print(string.Format("nextSpawnTime: {0}", nextSpawnTime));
+        //print(string.Format("enemiesRemainingToSpawn: {0}", enemiesRemainingToSpawn));
+        //print(string.Format("nextSpawnTime: {0}", nextSpawnTime));
         if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
         {
             --enemiesRemainingToSpawn;

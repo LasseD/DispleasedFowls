@@ -5,6 +5,8 @@ public class PointController : MonoBehaviour {
 
 	public int points  = 0;
 
+
+
 	public void GivePoints(int addPoints)
     {
         points += addPoints;
