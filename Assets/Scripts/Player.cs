@@ -8,9 +8,7 @@ public class Player : MonoBehaviour
 
     private PlayerController playerController;
     private AirshipController airshipController;
-
-    public string sortingLayer = "Front";
-
+    
     public void Start()
     {
         Debug.Log("Started player");

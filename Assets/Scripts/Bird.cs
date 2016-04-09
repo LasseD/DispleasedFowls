@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Bird : MonoBehaviour {
 
+    public Vector2 location;
+
 	// Use this for initialization
 	void Start () {
 	
