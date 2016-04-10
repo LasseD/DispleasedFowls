@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
         // Shoot input:
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("test");
             if(currentlyReachableHoles.Count>=1){
                 currentlyReachableHoles[0].ApplyingDamage(DPS * Time.deltaTime);
                 if (currentlyReachableHoles[0].isDead())
