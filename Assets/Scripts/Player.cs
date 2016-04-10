@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         }
         
         // Shoot input:
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Space))
         {
             if(currentlyReachableHoles.Count>=1){
                 currentlyReachableHoles[0].ApplyingDamage(DPS * Time.deltaTime);

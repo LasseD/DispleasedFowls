@@ -22,7 +22,7 @@ public class Bird : MonoBehaviour
     private float peckingTimeRemaining;
     private Animator anim;
     private SpriteRenderer renderer;
-    private AudioSource audio;
+    private AudioSource audioFlap, audioScare;
 
     public void Start()
     {
@@ -34,7 +34,8 @@ public class Bird : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetBool("BirdPecking", false);
         renderer = GetComponent<SpriteRenderer>();
-        audio = GetComponent<AudioSource>();
+        audioFlap = GetComponents<AudioSource>()[0];
+        audioScare = GetComponents<AudioSource>()[1];
     }
 
     void Update()
@@ -56,11 +57,11 @@ public class Bird : MonoBehaviour
 
     private void Flee()
     {
-        if (audio != null)
+        if (audioFlap != null)
         {
-            if (!audio.isPlaying)
+            if (!audioFlap.isPlaying)
             {
-                audio.Play();
+                audioFlap.Play();
             }
         }
 
@@ -91,6 +92,11 @@ public class Bird : MonoBehaviour
         Vector2 playerToBird = playerLocation - ((Vector2)transform.position);
         if (playerToBird.SqrMagnitude() <= scareDistance * scareDistance)
         {
+            if (audioScare != null)
+            {
+                audioScare.Play();
+            }
+
             if (OnBirdScared != null)
                 OnBirdScared();
             anim.SetBool("BirdPecking", false);
@@ -101,11 +107,11 @@ public class Bird : MonoBehaviour
     }
     private void MoveTowardTarget()
     {
-        if (audio != null)
+        if (audioFlap != null)
         {
-            if (!audio.isPlaying)
+            if (!audioFlap.isPlaying)
             {
-                audio.Play();
+                audioFlap.Play();
             }
         }
 

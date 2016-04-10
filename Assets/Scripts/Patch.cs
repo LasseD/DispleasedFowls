@@ -17,6 +17,7 @@ public class Patch : MonoBehaviour {
         startColor = GetComponent<SpriteRenderer>().color;
         transform.SetParent(GameObject.FindGameObjectWithTag("Airship").transform);
         Instantiate(VisualPoints, transform.position, Quaternion.identity);
+        //GetComponent<AudioSource>().Play();
     }
 
     public void Update()
