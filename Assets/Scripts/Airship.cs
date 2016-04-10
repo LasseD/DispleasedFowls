@@ -64,6 +64,10 @@ public class Airship : MonoBehaviour {
                     if (!audio.isPlaying)
                     {
                         audio.Play();
+                    } else
+                    {
+                        audio.Stop();
+                        audio.Play();
                     }
                 }
                 lastExplosionTime = timer + timeBetweenExplosions;
