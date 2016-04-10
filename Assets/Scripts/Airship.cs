@@ -24,7 +24,7 @@ public class Airship : MonoBehaviour {
     public GameObject explosion;
     public int amountOfExplosion;
     public float timeBetweenExplosions;
-
+    private float lastExplosionTime;
 
     public void Start()
     {
@@ -41,11 +41,29 @@ public class Airship : MonoBehaviour {
             transform.position = new Vector3(startPos.x, startPos.y + amplitude * Mathf.Sin(speed * timer), startPos.z);
             transform.rotation = Quaternion.Euler(0f,0f, amplitudeShake * Mathf.Sin(speedShake * timer));
         }
+
+        InstatiateExplosionIfDead();
+        
     }
 
     public void CreateExplosion()
     {
         Instantiate(explosion, GetRandomPointOnAirship(),Quaternion.identity);
+    }
+
+    public void InstatiateExplosionIfDead()
+    {
+        if (altitudeInMeters<=0)
+        {
+            if (lastExplosionTime <timer)
+            {
+                lastExplosionTime = timer + timeBetweenExplosions;
+                for (int i = 0; i < amountOfExplosion; i++)
+                {
+                    CreateExplosion();
+                }
+            }
+        }
     }
 
     public Vector2 GetRandomPointOnAirship()
