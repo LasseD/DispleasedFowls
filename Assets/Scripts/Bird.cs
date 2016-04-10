@@ -14,6 +14,7 @@ public class Bird : MonoBehaviour
     public float flightSpeed = 30f;
     public float peckingTimeSeconds = 4f;
     public int pointsForScare = 100;
+    public GameObject InfoTextPrefabForScare;
 
     private Vector2 spawnLocation, target;
     private State currentState;
@@ -85,6 +86,7 @@ public class Bird : MonoBehaviour
             anim.SetBool("BirdPecking", false);
             currentState = State.Leaving;
             GameManager.instance.GetPointController().GivePoints(pointsForScare);
+            Instantiate(InfoTextPrefabForScare, transform.position, Quaternion.identity);
         }
     }
     private void MoveTowardTarget()

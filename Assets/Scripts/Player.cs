@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("test");
             if(currentlyReachableHoles.Count>=1){
-                currentlyReachableHoles[0].ApplyingDamge(DPS * Time.deltaTime);
+                currentlyReachableHoles[0].ApplyingDamage(DPS * Time.deltaTime);
                 if (currentlyReachableHoles[0].isDead())
                 {
                     currentlyReachableHoles.Remove(currentlyReachableHoles[0]);

@@ -4,16 +4,18 @@ using System.Collections;
 public class Hole : MonoBehaviour
 {
     public float initialHealth = 100f;
-    private float altitudeLossPerSecond = 1.5f;
+    private float timeBetweenDamage = 0.5f;
 
     private float health = 100f;
 
     public Sprite[] sizes;
     public float[] colliderRadius;
-    public float[] altitudeLossPerSeconds;
+    public float[] timesBetweenDamage;
     public int pointsForPatch = 80;
+    public GameObject VisualDamage;
 
     private int size;
+    private float nextDamageTime;
 
     void Start()
     {
@@ -21,24 +23,29 @@ public class Hole : MonoBehaviour
         size = Random.Range(0, 3);
         GetComponent<SpriteRenderer>().sprite = sizes[size];
         GetComponent<CircleCollider2D>().radius = colliderRadius[size];
-        altitudeLossPerSecond = altitudeLossPerSeconds[size];
+        timeBetweenDamage = timesBetweenDamage[size];
+        nextDamageTime = 0;
         health = initialHealth;
     }
 
     void Update()
     {
-        ApplyDamage();
+        ApplyDamageToAirship();
         CheckHealth();
     }
 
-    void ApplyDamage()
+    void ApplyDamageToAirship()
     {
-        if (health <= 0)
+        if (isDead())
             return;
-        GameManager.instance.getAirship().ReduceAltitude(altitudeLossPerSecond * Time.deltaTime);
+        if (Time.time < nextDamageTime)
+            return;
+        GameManager.instance.getAirship().ReduceAltitude(1);
+        Instantiate(VisualDamage, transform.position, Quaternion.identity);
+        nextDamageTime = Time.time + timeBetweenDamage;
     }
 
-    public void ApplyingDamge(float dmg)
+    public void ApplyingDamage(float dmg)
     {
         health -= dmg;
         CheckHealth();
@@ -46,7 +53,7 @@ public class Hole : MonoBehaviour
 
     void CheckHealth()
     {
-        if (health >= 0)
+        if (!isDead())
             return;
         Patch p = ((GameObject)Instantiate(GameManager.instance.GetPatchToClone(), gameObject.transform.position, Quaternion.identity)).GetComponent<Patch>();
         GameManager.instance.GetPointController().GivePoints(pointsForPatch);
