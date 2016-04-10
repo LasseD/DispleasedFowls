@@ -9,12 +9,14 @@ public class Patch : MonoBehaviour {
     public float fadeOverTime = 2;
     private float time;
     private Color startColor;
+    public GameObject VisualPoints;
 
     public void Start()
     {
         GetComponent<SpriteRenderer>().sprite = sizes[size];
         startColor = GetComponent<SpriteRenderer>().color;
         transform.SetParent(GameObject.FindGameObjectWithTag("Airship").transform);
+        Instantiate(VisualPoints, transform.position, Quaternion.identity);
     }
 
     public void Update()
