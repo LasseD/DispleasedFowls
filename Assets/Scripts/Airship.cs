@@ -13,14 +13,39 @@ public class Airship : MonoBehaviour {
         }
     }
 
+    public int healthShakeLimit = 1200;
+    public float amplitude;
+    public float amplitudeShake;
+    public float speed;
+    public float speedShake;
+    private Vector3 startPos;
+    private float timer = 0;
+
+    public GameObject explosion;
+    public int amountOfExplosion;
+    public float timeBetweenExplosions;
+
+
     public void Start()
     {
         inSideTheShip = transform.FindChild("Graphics").GetComponent<PolygonCollider2D>();
+        startPos = transform.position;
     }
 
     public void Update()
     {
         //Debug.DrawLine(new Vector2(0, 0), GetRandomPointOnAirship(), Color.green, 0.2f); //Debugging for where the generated point is located. 
+        timer += Time.deltaTime;
+        if (altitudeInMeters < healthShakeLimit)
+        {
+            transform.position = new Vector3(startPos.x, startPos.y + amplitude * Mathf.Sin(speed * timer), startPos.z);
+            transform.rotation = Quaternion.Euler(0f,0f, amplitudeShake * Mathf.Sin(speedShake * timer));
+        }
+    }
+
+    public void CreateExplosion()
+    {
+        Instantiate(explosion, GetRandomPointOnAirship(),Quaternion.identity);
     }
 
     public Vector2 GetRandomPointOnAirship()

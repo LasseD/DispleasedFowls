@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         airship = GameObject.FindGameObjectWithTag("Airship").GetComponent<Airship>();
         anim = GetComponent<Animator>();
+
+        transform.SetParent(GameObject.FindGameObjectWithTag("Airship").transform);
     }
 
     void Update()

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class Hole : MonoBehaviour
 {
     public float initialHealth = 100f;
@@ -15,6 +16,9 @@ public class Hole : MonoBehaviour
 
     private int size;
 
+
+
+
     void Start()
     {
         transform.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
@@ -23,6 +27,8 @@ public class Hole : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = colliderRadius[size];
         altitudeLossPerSecond = altitudeLossPerSeconds[size];
         health = initialHealth;
+        GetComponent<AudioSource>().Play();
+        transform.SetParent(GameObject.FindGameObjectWithTag("Airship").transform);
     }
 
     void Update()

@@ -116,6 +116,8 @@ public class Bird : MonoBehaviour
     }
     private void Peck()
     {
+
+        transform.SetParent(GameObject.FindGameObjectWithTag("Airship").transform);
         peckingTimeRemaining -= Time.deltaTime;
         if (peckingTimeRemaining <= 0)
         {

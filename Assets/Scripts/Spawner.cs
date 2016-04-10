@@ -84,6 +84,11 @@ public class Spawner : MonoBehaviour
         return new Vector2((float)x, (float)y);
     }
 
+    public void ResetWaves()
+    {
+        currentWaveNumber = 0;
+    }
+
     [System.Serializable]
     public class Wave
     {

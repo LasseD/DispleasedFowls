@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Gaming)
         {
             if (altitudeText != null) {
-                altitudeText.text = "Altitude: " + Mathf.FloorToInt(currentAirShip.altitudeInMeters) + " ft";
+                altitudeText.text = "Health: " + Mathf.FloorToInt(currentAirShip.altitudeInMeters);
             }
             if (scoreText != null) {
                 scoreText.text = "Points: " + pointController.GetPoints();
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < allObjects.Length; i ++)
         {
-            Destroy(allObjects[i]);
+            Destroy(allObjects[i].gameObject);
         }
 
         ShowFrontPage();
@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        spawner.ResetWaves();
         startScreen.SetActive(false);
         gamingScreen.SetActive(true);
         gameOver.SetActive(false);
@@ -161,5 +162,10 @@ public class GameManager : MonoBehaviour
     public void LoseAltitude(int height)
     {
         currentAirShip.ReduceAltitude(height);
+    }
+
+    public void CreateExplosionOnCurrentShip()
+    {
+        currentAirShip.CreateExplosion();
     }
 }

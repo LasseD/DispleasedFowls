@@ -14,6 +14,7 @@ public class Patch : MonoBehaviour {
     {
         GetComponent<SpriteRenderer>().sprite = sizes[size];
         startColor = GetComponent<SpriteRenderer>().color;
+        transform.SetParent(GameObject.FindGameObjectWithTag("Airship").transform);
     }
 
     public void Update()
