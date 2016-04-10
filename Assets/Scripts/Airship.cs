@@ -25,11 +25,13 @@ public class Airship : MonoBehaviour {
     public int amountOfExplosion;
     public float timeBetweenExplosions;
     private float lastExplosionTime;
+    private AudioSource audio;
 
     public void Start()
     {
         inSideTheShip = transform.FindChild("Graphics").GetComponent<PolygonCollider2D>();
         startPos = transform.position;
+        audio = GetComponent<AudioSource>();
     }
 
     public void Update()
@@ -57,6 +59,13 @@ public class Airship : MonoBehaviour {
         {
             if (lastExplosionTime <timer)
             {
+                if (audio != null)
+                {
+                    if (!audio.isPlaying)
+                    {
+                        audio.Play();
+                    }
+                }
                 lastExplosionTime = timer + timeBetweenExplosions;
                 for (int i = 0; i < amountOfExplosion; i++)
                 {
